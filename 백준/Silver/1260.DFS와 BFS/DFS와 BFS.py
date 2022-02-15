@@ -1,4 +1,7 @@
-# Depth First Search
+import sys
+from collections import deque
+
+# Depth First Search (깊이우선탐색)
 def dfs(n):
     print(n, end=' ')
     visited[n] = True
@@ -6,7 +9,7 @@ def dfs(n):
         if not visited[i]:
             dfs(i)
 
-# Breadth First Search
+# Breadth First Search (너비우선탐색)
 def bfs(n):
     visited[n] = True
     queue = deque([n])
@@ -17,9 +20,6 @@ def bfs(n):
             if not visited[i]:
                 queue.append(i)
                 visited[i] = True
-
-import sys
-from collections import deque
 
 # node, branch, first node
 n, m, v = map(int, sys.stdin.readline().split())
