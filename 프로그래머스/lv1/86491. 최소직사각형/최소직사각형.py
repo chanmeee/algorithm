@@ -1,13 +1,13 @@
 def solution(sizes):
     answer = 0
     
-    # x: longer , y: shorter 
-    x= []
-    y= []
+    max_list = []
+    min_list = []
 
-    for size in sizes:
-      x.append(max(size))
-      y.append(min(size))
+    for s in sizes:
+        max_list.append(max(s))
+        min_list.append(min(s))
 
-    answer = max(x) * max(y) 
+    answer = max(max_list) * max(min_list)
+    
     return answer
