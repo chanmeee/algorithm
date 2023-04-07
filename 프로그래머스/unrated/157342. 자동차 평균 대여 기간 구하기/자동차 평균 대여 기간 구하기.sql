@@ -1,0 +1,13 @@
+-- 평균 대여 기간이 7일 이상
+WITH avg_dur AS(
+    SELECT  CAR_ID,
+        round(avg(timestampdiff(day,START_DATE,END_DATE)+1), 1) as AVERAGE_DURATION
+    FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY  
+    GROUP BY CAR_ID
+    ORDER BY car_id
+)
+
+SELECT CAR_ID, AVERAGE_DURATION
+FROM avg_dur 
+WHERE AVERAGE_DURATION >= 7 
+ORDER BY AVERAGE_DURATION desc, CAR_ID desc
