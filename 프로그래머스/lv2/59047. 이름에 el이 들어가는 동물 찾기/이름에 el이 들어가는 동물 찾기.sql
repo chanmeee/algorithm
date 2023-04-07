@@ -1,0 +1,6 @@
+-- 이름 순으로 조회
+SELECT ANIMAL_ID, NAME 
+FROM ANIMAL_INS 
+WHERE NAME REGEXP 'el'
+    and ANIMAL_TYPE ='Dog'
+ORDER BY lower(NAME ) 
