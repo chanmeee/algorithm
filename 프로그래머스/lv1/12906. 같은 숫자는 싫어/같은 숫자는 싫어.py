@@ -1,12 +1,16 @@
-# 연속이면 제거, 순서 유지
+from collections import deque 
 
 def solution(arr):
     answer = []
-    answer.append(arr[0])
+    q = deque(arr)
+    answer.append(q.popleft())  # 큐 정의 후, 1번째 요소 기준점으로 잡기
     
-    for idx in range(1, len(arr)):
-        if arr[idx] != arr[idx-1]:
-            answer.append(arr[idx])
-        elif arr[idx] == arr[idx-1]:
-            pass
+    for i in range(1,len(arr)):  # 1번째껀 넣었으니 빼고 loop
+        next = q.popleft() 
+        if next == answer[-1]:
+            continue 
+        else:
+            answer.append(next) 
+        
+    
     return answer
