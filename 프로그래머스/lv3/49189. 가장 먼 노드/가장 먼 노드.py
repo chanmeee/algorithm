@@ -1,9 +1,9 @@
-from collections import deque, Counter 
+from collections import deque, defaultdict  
 
 def solution(n, edge):
     answer = 0 
     
-    adj = [[] for _ in range(n+1)]  # 인접 노드 저장
+    adj = defaultdict(list)   # 인접 노드 저장
     visit = [0]*(n+1)  # 몇 번째 방문인지 저장 
     for a,b in edge:
         adj[a].append(b)
@@ -11,7 +11,7 @@ def solution(n, edge):
         
     visit[1]=1  # 노드1은 1번째 방문
     q = deque() 
-    q.append(1)  # 첫 기준점은 [1] 
+    q.append(1)  # 첫 기준점은 1 
     
     while q:
         x = q.popleft()  # 큐의 제일 앞에 있는 거(노드) 빼내기 
@@ -23,4 +23,4 @@ def solution(n, edge):
     max_v = max(visit) 
     cnt = visit.count(max_v) 
            
-    return cnt if cnt >0 else 1  
+    return cnt 
