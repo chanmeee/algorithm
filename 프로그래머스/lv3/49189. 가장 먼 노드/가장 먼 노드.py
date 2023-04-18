@@ -1,26 +1,35 @@
-from collections import deque, defaultdict  
+# 최단경로문제 -> bfs - q 정의(현재 기준좌표), 1번 노드 시작 ~ deque 
+# 인접노드 저장 - adj 정의 ~ defaultdict
+# bfs 적용
+# 이동수 계속 저장 후, max 값 저장, .count(max_value)를 리턴 
+from collections import deque, defaultdict 
 
 def solution(n, edge):
-    answer = 0 
+    answer = 0
     
-    adj = defaultdict(list)   # 인접 노드 저장
-    visit = [0]*(n+1)  # 몇 번째 방문인지 저장 
-    for a,b in edge:
-        adj[a].append(b)
-        adj[b].append(a) 
-        
-    visit[1]=1  # 노드1은 1번째 방문
+    adj = defaultdict(list) 
+    for i,j in edge:
+        adj[i].append(j)
+        adj[j].append(i) 
+    
     q = deque() 
-    q.append(1)  # 첫 기준점은 1 
+    q.append(1)  # 1부터 시작 
+    moves=[0]*(n+1)  # 노드별 이동수
+    moves[1] = 1 
     
-    while q:
-        x = q.popleft()  # 큐의 제일 앞에 있는 거(노드) 빼내기 
-        for next in adj[x]:  # 빼낸 노드와 연결된 다른 노드를 확인해가며, 
-            if not visit[next] :   # 만일 해당 연결노드를 방문 안했으면,
-                visit[next] = visit[x] + 1  # 기준점+1 로 방문index 저장
-                q.append(next)  # 해당 연결노드는 큐에 append  ## 재귀! 
+    while q: 
+        v = q.popleft() 
+        
+        for nv in adj[v]: 
+            if moves[nv] != 0: # 처음 가는 경로 아니면 
+                continue 
+            if nv <=0 or nv>n:  # 1~n 범위 벗어나면
+                continue 
+            elif moves[nv] == 0 : 
+                q.append(nv)
+                moves[nv] = moves[v] + 1 
     
-    max_v = max(visit) 
-    cnt = visit.count(max_v) 
-           
-    return cnt 
+    max_m = max(moves)
+    answer= moves.count(max_m)
+        
+    return  answer
