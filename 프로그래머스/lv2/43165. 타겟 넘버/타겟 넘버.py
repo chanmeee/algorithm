@@ -1,21 +1,20 @@
-# 2개 이상 20개 이하 -> DFS 해보자
-# numbers: 사용할 수 있는 숫자가 담긴 배열
-# target: 타겟 넘버 
+from collections import deque 
 
-from collections import deque
 def solution(numbers, target):
     answer = 0
-    queue = deque()
+    q = deque()
     n = len(numbers)
-    queue.append([numbers[0],0])
-    queue.append([-1*numbers[0],0])
-    while queue:
-        temp, idx = queue.popleft()
-        idx += 1
-        if idx < n:
-            queue.append([temp+numbers[idx], idx])
-            queue.append([temp-numbers[idx], idx])
+    
+    q.append([numbers[0], 0])    #덧셈연산
+    q.append([-1*numbers[0],0])  #뺄셈연산
+    
+    while q:
+        temp, idx = q.popleft()
+        idx +=1 
+        if idx <n :
+            q.append([temp+numbers[idx],idx])    # < 구조로 뻗어나감 
+            q.append([temp-1*numbers[idx],idx])  
         else:
             if temp == target:
-                answer += 1
+                answer +=1
     return answer
