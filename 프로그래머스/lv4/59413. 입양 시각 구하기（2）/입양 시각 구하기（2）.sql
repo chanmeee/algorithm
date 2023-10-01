@@ -1,12 +1,13 @@
--- 0시부터 23시, 시간대별로 입양이 몇 건
--- 시간대 순으로 정렬
-WITH RECURSIVE H_table AS(
-    SELECT 0 AS HOUR
-    UNION ALL
-    SELECT HOUR+1 FROM H_table where HOUR<23) 
+-- 각 시간대별로 입양이 몇 건이나 발생
+WITH RECURSIVE h_table AS (
+    select 0 as HOUR
+    UNION ALL 
+    select hour+1 from h_table where hour<23
+    # hour<23 때까지 h_table의 hour 변수에 1을 더한다 
+)
 
-SELECT h.HOUR as HOUR, count(ANIMAL_ID) as COUNT
-FROM H_table h
-LEFT JOIN ANIMAL_OUTS outs ON h.HOUR = hour(outs.DATETIME) 
-GROUP BY h.HOUR
-ORDER BY h.HOUR 
+SELECT h.hour, count(ANIMAL_ID) CNT
+FROM h_table h
+LEFT JOIN ANIMAL_OUTS ao ON h.hour = hour(ao.DATETIME) 
+GROUP BY h.hour  
+ORDER BY h.hour 
